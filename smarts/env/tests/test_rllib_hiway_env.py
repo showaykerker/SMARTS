@@ -1,3 +1,4 @@
+import psutil
 import pytest
 
 from pathlib import Path
@@ -6,6 +7,7 @@ import gym
 import numpy as np
 
 from ray import tune
+import ray
 from ray.rllib.models import ModelCatalog
 from ray.rllib.models.tf.fcnet_v2 import FullyConnectedNetwork
 
@@ -116,6 +118,11 @@ def test_rllib_hiway_env(rllib_agent):
         "num_workers": 1,
     }
 
+    # Test tune with the number of physical cpus
+    num_cpus = max(
+        1, psutil.cpu_count(logical=False) - 1
+    )
+    ray.init(num_cpus=num_cpus, num_gpus=0)
     analysis = tune.run(
         "PPO",
         name="RLlibHiWayEnv test",
