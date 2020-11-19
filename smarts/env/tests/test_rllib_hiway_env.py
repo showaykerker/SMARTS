@@ -119,9 +119,7 @@ def test_rllib_hiway_env(rllib_agent):
     }
 
     # Test tune with the number of physical cpus
-    num_cpus = max(
-        1, psutil.cpu_count(logical=False) - 1
-    )
+    num_cpus = max(1, psutil.cpu_count(logical=False) - 1)
     ray.init(num_cpus=num_cpus, num_gpus=0)
     analysis = tune.run(
         "PPO",
