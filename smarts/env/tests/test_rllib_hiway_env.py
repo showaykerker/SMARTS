@@ -1,18 +1,17 @@
-import psutil
-import pytest
-
 from pathlib import Path
 
 import gym
 import numpy as np
-
-from ray import tune
+import psutil
+import pytest
 import ray
+from ray import tune
 from ray.rllib.models import ModelCatalog
 from ray.rllib.models.tf.fcnet_v2 import FullyConnectedNetwork
 
-from smarts.core.agent_interface import AgentInterface, AgentType
 from smarts.core.agent import AgentSpec
+from smarts.core.agent_interface import AgentInterface
+from smarts.core.agent_interface import AgentType
 from smarts.env.rllib_hiway_env import RLlibHiWayEnv
 
 AGENT_ID = "Agent-007"
